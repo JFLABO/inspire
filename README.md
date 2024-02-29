@@ -1,5 +1,5 @@
 # inspire
-TMS(Time Management System) for (JIT)JUST IN TIME
+TMS(Time Management System) for (JIT) just in time
 
 計画
 
