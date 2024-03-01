@@ -1,0 +1,4 @@
+Class
+Rank
+JOB
+TASK
