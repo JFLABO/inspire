@@ -42,8 +42,133 @@
 
 範囲
 　広く内包する計画　抜け漏れなくどれかに収まるロジックを計画する
+ 論理的　合理的判断　今はこうですという認知の説明
+正しい知識　選ぶ　身に着ける　トレーニング　学習
+
+やりたいことリスト
+　時間稼ぎ　開発時間　画策時間　方策時間　売上高の柱の設計　画策
+
+決めごと　仕組み　ルール　枠組み　学習　仕事のやり方
+事実のお知らせ　データとプログラムについて tkb.py ruby on rails
+安定している　もめていない　無くはならない　予想　保証　未来
+議事録　書き込み　データ　訴訟　経営判断　リストラ　お仕事　就職
+大きなディスプレイ　放送　情報　通信　製本のやり方　冊子の作り方　
+まとめ　集計　集約　伝達　理由　説明　危険性　リスク　算定
+ギリギリ譲歩できるラインについて　渉外　待ち時間　猶予期間
+イメージ戦略について　目的　時期　季節　変わり目　変化の認知
+
+system　仕掛け　構造　概念　メリット　やってみてから感想を述べる
+読解するヒントについて記載します。
+
+背景：時間管理がいまいちで残業体質の組織がある。
+秘書課が手配する時間指定有の特急の指定席で移動ができない
+体質の組織になっている。タイムマネジメント技術　スキル　ノウハウ
+
+有用なところ　データが消失しないように　バックアップ儀式
+ユニークなデータの保持について画策　計画　知っておく　管理術
+
+時間制度　時給制度　月給制度　残業代　計算に用いる
+
+実装のステップ
+　org-modeで日程表を管理する
+　やり方
+　　EmacsからCSVに書き出す。M-x my-org-table-convert-to
+orgtbl-to-tsv   タブ区切りのテキスト形式
+orgtbl-to-csv   カンマ区切りのテキスト形式
+orgtbl-to-html  HTML形式
+orgtbl-to-latex LaTeX形式
+
+　CSVを読み込む　ファイルを指定して読み込み　定義
+　表示する　ループ
+　　残日数を計算する　表示する
+　要素　管理対象
+　　名称　日付　時刻　名前　連絡先電話　の5要素と定義する
+テスト
+　繰り返し　意図したとおりに作動するか　動作保証可能かどうか
+　認定　リリース　プレビュー版　検出されたバグ　不具合
+　実行してみて実用上問題が無いかテストする。
+仕様変更要求
+　タイパにこだわりを持つ　定時ダッシュを計画する
+仕様確定日　2024/03/02 02:19:00
 
 依頼
 
 発令
+残作業　ポイント
+　残り時間の計算　配慮　考慮　内包　連携　協力
 
+任務着任時間（累計）　特定任務　タスクフォース
+分担　連動　共有　だれがいつごろまでに何をやるか
+フロー　ビヘイビア　アクション　予定の投入CSV編集
+ボタンを押すとファイルが生成されるシステム　稼働記録
+それの集計 JSON CSV ファイル保持　記録　記憶装置
+使い方
+　CSVを手入れすることとする
+
+　ruby app/inspire.rb　でプログラムを実行する
+変化に適合する　認知が重要
+
+CSVを読み込む
+ハッシュに読み込み日付で並べ替えをする
+CSVに書き込む
+
+=end
+#1.CSVを読み込んでリストに格納する
+require "csv"
+require 'date'
+require 'time'
+time = Time.now
+year = time.year
+month = time.month
+day = time.day
+hour = time.hour
+min = time.min
+sec = time.sec
+
+#CSVを読み込む
+data_list = CSV.read("/root/app/csv/list.csv")
+data_list2= data_list.sort {|a,b| b[1] <=> a[1]}
+#ハッシュに読み込み日付で並べ替えをする
+#CSVに書き込む
+ #CSV.foreach("/root/app/csv/test.csv") do |line|
+   CSV.open('/root/app/csv/list.csv','w') do |csv| # output to csv file
+     data_list2.each do |bo|
+       csv << bo
+     end
+   end
+
+puts "今日は" + year.to_s + "年" + month.to_s + "月" + day.to_s + "日です。"
+puts "今は" + hour.to_s + "時" + min.to_s + "分" + sec.to_s + "秒です。"
+week = ["日曜日", "月曜日", "火曜日", "水曜日", "木曜日", "金曜日", "土曜日"]
+puts week[time.wday] +"です。"
+  p "//////////////////////////////////////////////////"
+  #日付型に変換。計算する
+  CSV.foreach("/root/app/csv/list.csv") do |row|
+    # 行に対する処理
+  p row[0] + row[3] +row[4]
+  #残り時間を演算する　日数　時間　管理
+  today = Date.today
+  dd=row[1].split("/")
+     dd.join(",")
+  #p dd[0]
+  #dt=dd[0]+","+dd[1]+","+dd[2]
+  #p dt
+  dt="2024,3,4"
+  future = Date.new(dd[0].to_i,dd[1].to_i,dd[2].to_i)
+  remainingDay = future -today
+  rm= remainingDay.to_i.to_s
+  #p future
+  dt=row[1].gsub(" ", "")+" "+row[2].gsub(" ", "")
+  #p dt
+  dt2=Time.parse(dt)
+  p dt2
+  #dt3=Time.parse("2024/03/01 11:00")
+  dt3= Time.now
+  tt=dt2-dt3
+  #p tt
+  #tt="aa"
+  p "あと" + rm + "日です。残時間は" +(tt.floor / 3600).to_s+ "時間です。"
+  p "//////////////////////////////////////////////////"
+end
+
+#2.件数分ループで表示する
